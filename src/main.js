@@ -26,19 +26,22 @@ hideLoader();
 export let query = "";
 
 
-refs.form.addEventListener("submit", event => {
+refs.form.addEventListener("submit", async event => {
     event.preventDefault();
 
     refs.gallery.innerHTML = "";
     query = refs.searchInput.value.trim();
     if (query !== '') {
-        getImages(query).then(data => {
+        try {
+            const data = await getImages(query);
             render(data);
             hideLoader();
-        })
-        .catch(error => console.log(error));
+        }
+        catch(error) {
+            console.log(error);
+        };
     }   else {
-        displayMessage("Empty field!")
+            displayMessage("Empty field!")
     }
 
     refs.form.reset();
