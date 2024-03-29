@@ -64,6 +64,12 @@ refs.loadBtn.addEventListener("click", async onLoadMoreClick => {
         hideLoader();
         render(data);
         showLoadBtn();
+        const item = document.querySelector(".gallery-item");
+        const rect = item.getBoundingClientRect();
+        window.scrollBy({
+            top: rect.height * 2,
+            behavior: "smooth",
+        })
         const maxPage = Math.ceil(data.totalHits / pageLimit);
         if (currentPage >= maxPage) {
             hideLoadBtn();
