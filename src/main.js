@@ -41,37 +41,39 @@ refs.form.addEventListener("submit", async event => {
             const maxPage = Math.ceil(data.totalHits / pageLimit);
             render(data);
             hideLoader();
-            showLoadBtn();
-        }
-        catch(error) {
+            if (currentPage >= maxPage) {
+                hideLoadBtn();
+            } else {
+                showLoadBtn();
+            }
+        } catch (error) {
             console.log(error);
-        };
-    }   else {
-            displayMessage("Empty field!");
+            displayMessage("An error occurred while fetching data.");
             hideLoadBtn();
+        }
+    } else {
+        displayMessage("Empty field!");
+        hideLoadBtn();
     }
-
     refs.form.reset();
 });
-
 refs.loadBtn.addEventListener("click", async onLoadMoreClick => {
     currentPage += 1;
-    const data = await getImages(query, currentPage);
-    hideLoader();
-    render(data);
-    showLoadBtn();
-    const item = document.querySelector(".gallery-item");
-    const rect = item.getBoundingClientRect();
-    window.scrollBy({
-        top: rect.height * 2,
-        behavior: "smooth",
-})
-    if(currentPage > pageLimit) {
-        displayMessage("We're sorry, but you've reached the end of search results.");
-        hideLoadBtn();
+    try {
+        const data = await getImages(query, currentPage);
         hideLoader();
+        render(data);
+        showLoadBtn();
+        const maxPage = Math.ceil(data.totalHits / pageLimit);
+        if (currentPage >= maxPage) {
+            hideLoadBtn();
+        }
+    } catch (error) {
+        console.log(error);
+        displayMessage("An error occurred while fetching data.");
+        hideLoadBtn();
     }
-})
+});
 
 
 export function displayMessage(message) {
