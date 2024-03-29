@@ -1,5 +1,5 @@
 import axios from "axios";
-import { refs, query, showLoader, showLoadBtn, currentPage, pageLimit} from "../main";
+import { refs, query, showLoader, currentPage, pageLimit} from "../main";
 
 const myAxios = axios.create ({
     baseURL: "https://pixabay.com/api/",

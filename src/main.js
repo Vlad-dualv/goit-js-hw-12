@@ -22,12 +22,13 @@ export const refs = {
     gallery: document.querySelector(".gallery"),
 }
 
-hideLoader();
-hideLoadBtn();
 
 export let query = "";
 export let currentPage = 1;
 export let pageLimit = 15;
+
+hideLoader();
+hideLoadBtn();
 
 refs.form.addEventListener("submit", async event => {
     event.preventDefault();
@@ -90,11 +91,11 @@ export function showLoader() {
     refs.loader.style.display = "block";
 }
 
-export function hideLoadBtn() {
+function hideLoadBtn() {
     refs.loadBtn.style.display = "none";
 }
 
-export function showLoadBtn() {
+function showLoadBtn() {
     refs.loadBtn.style.display = "block";    
 }
 
