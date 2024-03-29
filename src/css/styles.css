@@ -79,6 +79,7 @@ button:focus {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  margin-bottom: 50px;
 }
 
 .loader {

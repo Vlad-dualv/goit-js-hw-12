@@ -3,7 +3,7 @@ import 'izitoast/dist/css/iziToast.min.css';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-import { refs, lightbox, displayMessage } from '../main';
+import { refs, lightbox, displayMessage, showLoadBtn } from '../main';
 
 export function render(data) {
     if (data.hits.length === 0) {
@@ -17,7 +17,7 @@ export function render(data) {
         const markup = images.map(image => 
             `<li class="gallery-item">
                 <a class="gallery-link" href="${image.largeImageURL}">
-                <img class="gallery-image" src="${image.webformatURL}" alt="${image.tags}" />
+                <img loading="lazy" class="gallery-image" src="${image.webformatURL}" alt="${image.tags}" />
                 </a>
                 <div class="stats">
                     <p class="text">Likes<br/>${image.likes}</p>
@@ -28,7 +28,6 @@ export function render(data) {
             </li>`).join('');
 
     refs.gallery.insertAdjacentHTML('beforeend', markup);
-
     lightbox.refresh();
     }
 }
