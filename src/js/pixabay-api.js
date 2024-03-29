@@ -1,5 +1,5 @@
 import axios from "axios";
-import { refs, query, showLoader, showLoadBtn, currentPage} from "../main";
+import { refs, query, showLoader, showLoadBtn, currentPage, pageLimit} from "../main";
 
 const myAxios = axios.create ({
     baseURL: "https://pixabay.com/api/",
@@ -9,7 +9,7 @@ export async function getImages() {
     const params = {
         key: "43015885-c3997a91f23585149f1baaf72",
         q: query,
-        per_page: 15,
+        per_page: pageLimit,
         page: currentPage,
         image_type: "photo",
         orientation: "horizontal",

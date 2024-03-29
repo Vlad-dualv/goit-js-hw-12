@@ -26,17 +26,18 @@ hideLoader();
 hideLoadBtn();
 
 export let query = "";
-export let page = 1;
 export let currentPage = 1;
+export let pageLimit = 15;
 
 refs.form.addEventListener("submit", async event => {
     event.preventDefault();
-
+    currentPage = 1;
     refs.gallery.innerHTML = "";
     query = refs.searchInput.value.trim();
     if (query !== '') {
         try {
             const data = await getImages(query, currentPage);
+            const maxPage = Math.ceil(data.totalHits / pageLimit);
             render(data);
             hideLoader();
             showLoadBtn();
@@ -45,7 +46,8 @@ refs.form.addEventListener("submit", async event => {
             console.log(error);
         };
     }   else {
-            displayMessage("Empty field!")
+            displayMessage("Empty field!");
+            hideLoadBtn();
     }
 
     refs.form.reset();
@@ -57,6 +59,17 @@ refs.loadBtn.addEventListener("click", async onLoadMoreClick => {
     hideLoader();
     render(data);
     showLoadBtn();
+    const item = document.querySelector(".gallery-item");
+    const rect = item.getBoundingClientRect();
+    window.scrollBy({
+        top: rect.height * 2,
+        behavior: "smooth",
+})
+    if(currentPage > pageLimit) {
+        displayMessage("We're sorry, but you've reached the end of search results.");
+        hideLoadBtn();
+        hideLoader();
+    }
 })
 
 
@@ -84,6 +97,4 @@ export function hideLoadBtn() {
 export function showLoadBtn() {
     refs.loadBtn.style.display = "block";    
 }
-
-
 

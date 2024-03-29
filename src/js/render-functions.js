@@ -3,15 +3,15 @@ import 'izitoast/dist/css/iziToast.min.css';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-import { refs, lightbox, displayMessage, showLoadBtn } from '../main';
+import { refs, lightbox, displayMessage, hideLoadBtn } from '../main';
 
 export function render(data) {
     if (data.hits.length === 0) {
         displayMessage(
         'Sorry, there are no images matching your search query. Please try again!'
         );
+        hideLoadBtn();
     } else {
-        refs.gallery.innerHTML = '';
         const images = data.hits;
 
         const markup = images.map(image => 
