@@ -7,10 +7,10 @@ import { refs, lightbox, displayMessage, hideLoadBtn } from '../main';
 
 export function render(data) {
     if (data.hits.length === 0) {
+        hideLoadBtn();
         displayMessage(
         'Sorry, there are no images matching your search query. Please try again!'
         );
-        hideLoadBtn();
     } else {
         const images = data.hits;
 
